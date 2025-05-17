@@ -1,9 +1,7 @@
 ---
 name: User Story
-about: Write a new user story for our project
+about: Write a new user story for the project
 title: 'US: '
-labels: user story
-assignees:
 ---
 
 **As a** [role]  
