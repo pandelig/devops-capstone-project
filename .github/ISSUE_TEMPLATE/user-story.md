@@ -1,3 +1,11 @@
+---
+name: User Story
+about: Write a new user story for our project
+title: 'US: '
+labels: user story
+assignees:
+---
+
 **As a** [role]  
 **I need** [function]  
 **So that** [benefit]  
@@ -6,7 +14,8 @@
     * [document what you know]      
 
 ### Acceptance Criteria     
-    gherkin 
+    ```gherkin 
     Given [some context]
     When [certain action is taken]
     Then [the outcome of action is observed]
+    ```
