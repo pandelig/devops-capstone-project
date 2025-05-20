@@ -161,6 +161,15 @@ class TestAccountService(TestCase):
         updated_account = resp.get_json()
         self.assertEqual(updated_account["name"], "Something Known")
 
+    def test_update_non_existant_account(self):
+        """It should not Update a non-existant Account"""
+        account_data = AccountFactory().serialize()
+        resp = self.client.put(f"{BASE_URL}/0", json=account_data)
+
+        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+        data = resp.get_json()
+        self.assertIn("could not be found", data["message"])
+
     def test_get_account_list(self):
         """It should Get a list of Accounts"""
         self._create_accounts(5)
