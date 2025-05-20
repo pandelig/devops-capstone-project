@@ -8,6 +8,7 @@ import os
 from service import app
 from service.models import Account, DataValidationError, db
 from tests.factories import AccountFactory
+from datetime import date
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
@@ -175,3 +176,22 @@ class TestAccount(unittest.TestCase):
         """It should not Deserialize an account with a TypeError"""
         account = Account()
         self.assertRaises(DataValidationError, account.deserialize, [])
+
+    def test_deserialize_an_account_without_date_joined(self):
+        """It should Deserialize an account without `date_joined`"""
+        account = AccountFactory()
+        account.create()
+        serial_account = {
+            "name": account.name,
+            "email": account.email,
+            "address": account.address,
+            "phone_number": account.phone_number
+        }
+        new_account = Account()
+        new_account.deserialize(serial_account)
+        self.assertEqual(new_account.name, account.name)
+        self.assertEqual(new_account.email, account.email)
+        self.assertEqual(new_account.address, account.address)
+        self.assertEqual(new_account.phone_number, account.phone_number)
+        self.assertEqual(new_account.date_joined, date.today())
+
