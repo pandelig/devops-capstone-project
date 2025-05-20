@@ -195,3 +195,8 @@ class TestAccount(unittest.TestCase):
         self.assertEqual(new_account.phone_number, account.phone_number)
         self.assertEqual(new_account.date_joined, date.today())
 
+    def test_repr(self):
+        """It should represent the Account object as a string"""
+        account = AccountFactory(id=1, name="Test Account")
+        expected_repr = "<Account Test Account id=[1]>"
+        self.assertEqual(repr(account), expected_repr)
